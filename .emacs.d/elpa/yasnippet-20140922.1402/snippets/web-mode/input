@@ -1,0 +1,5 @@
+# name: <input type="..." name="...">
+# key: input
+# binding: direct-keybinding
+# --
+<input type="$1" name="$2">

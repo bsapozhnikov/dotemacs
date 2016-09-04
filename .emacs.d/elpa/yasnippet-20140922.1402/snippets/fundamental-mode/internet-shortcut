@@ -1,0 +1,4 @@
+#name : [InternetShortcut] URL=...
+# --
+[InternetShortcut]
+URL=$0

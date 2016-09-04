@@ -1,0 +1,6 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: <input type="submit" value="Submit">
+# key: submit
+# binding: direct-keybinding
+# --
+<input type="submit" value="${1:Submit}">
