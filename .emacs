@@ -17,6 +17,7 @@
  '(electric-pair-mode t)
  '(indent-tabs-mode t)
  '(inhibit-startup-screen t)
+ '(js-indent-level 2)
  '(markdown-command "/c/Users/Brian/AppData/Local/Pandoc/pandoc")
  '(require-final-newline nil))
 (custom-set-faces
@@ -49,7 +50,7 @@
 ;;;;;;;;;;;;;;;;;;;;
 (require 'package)
 (add-to-list 'package-archives
-	     '("melpa" . "http://melpa.milkbox.net/packages/") t)
+	     '("melpa" . "http://melpa.org/packages/"))
 (package-initialize)
 (add-hook 'after-init-hook #'global-flycheck-mode)
 

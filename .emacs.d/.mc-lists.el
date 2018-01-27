@@ -3,11 +3,19 @@
 
 (setq mc/cmds-to-run-for-all
       '(
+	LaTeX-insert-left-brace
+	TeX-insert-backslash
+	TeX-insert-dollar
+	c-electric-paren
+	kill-region
 	transpose-sexps
 	tuareg-electric-rp
 	))
 
 (setq mc/cmds-to-run-once
       '(
+	electric-pair-delete-pair
+	markdown-other-window
 	python-indent-electric-colon
+	yas-expand
 	))

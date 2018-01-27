@@ -1,0 +1,9 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: indent
+# key: indent
+# binding: direct-keybinding
+# --
+{\addtolength{\leftskip}{4mm}
+    $0
+
+}

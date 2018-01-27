@@ -1,0 +1,6 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: subscript
+# key: _
+# binding: direct-keybinding
+# --
+_{$1}$0

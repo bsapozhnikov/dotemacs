@@ -1,0 +1,6 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: (\forall x)
+# key: forall
+# binding: direct-keybinding
+# --
+(\forall $1)$0

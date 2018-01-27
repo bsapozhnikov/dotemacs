@@ -1,0 +1,6 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: (\exists x)
+# key: exists
+# binding: direct-keybinding
+# --
+(\exists $1)$0
