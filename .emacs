@@ -13,13 +13,17 @@
  ;; If there is more than one, they won't work right.
  '(ahk-syntax-directory "c:/Users/Brian/Desktop/Main.ahk" t)
  '(electric-indent-mode t)
- '(electric-layout-mode t)
+ '(electric-layout-mode nil)
  '(electric-pair-mode t)
- '(indent-tabs-mode t)
+ '(indent-tabs-mode nil)
  '(inhibit-startup-screen t)
  '(js-indent-level 2)
  '(markdown-command "/c/Users/Brian/AppData/Local/Pandoc/pandoc")
- '(require-final-newline nil))
+ '(package-selected-packages
+   (quote
+    (typescript-mode flycheck-mypy markdown-mode+ markdown-mode tuareg flycheck yasnippet web-mode multiple-cursors js2-mode auto-complete)))
+ '(require-final-newline nil)
+ '(typescript-indent-level 2))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -32,12 +36,12 @@
 			   (?[  . ?])
 			   (?{  . ?})
 			   (?<  . ?>)
-			   (?'  . ?')
 			   (?\" . ?\")))
 
 (setq-default cursor-type 'bar)
 (x-focus-frame nil)
 (setq column-number-mode t)
+(setq-default show-trailing-whitespace t)
 
 ;;;;;;;;;;;;;;;;;;;;
 ;;; Key Bindings ;;;
@@ -112,9 +116,17 @@
 ;;;;;;;;;;;;;;;;;;;;;
 ;;;   YASnippet   ;;;
 ;;;;;;;;;;;;;;;;;;;;;
-(add-to-list 'load-path "~/.emacs.d/elpa/yasnippet-20140922.1402")
+(add-to-list 'load-path "~/.emacs.d/elpa/yasnippet-20181015.1212")
 (require 'yasnippet)
 (yas-global-mode 1)
+
+;;;;;;;;;;;;;;;;;;;;;
+;;;    TS Mode    ;;;
+;;;;;;;;;;;;;;;;;;;;;
+(add-to-list 'load-path "~/.emacs.d/ts-mode")
+(add-to-list 'auto-mode-alist '("\\.ts$" . typescript-mode))
+(add-to-list 'auto-mode-alist '("\\.tsx$" . typescript-mode))
+(autoload 'ts-mode "ts-mode" "TS mode" t)
 
 ;;;;;;;;;;;;;;;;;;;;;
 ;;;      JSX      ;;;
@@ -187,7 +199,6 @@
 (set-face-attribute 'web-mode-current-element-highlight-face nil :background "#ddd")
 ;;(define-key web-mode-map (kbd "TAB") 'web-mode-attribute-end)
 (define-key web-mode-map (kbd "TAB") 'indent-for-tab-command)
-(setq-default indent-tabs-mode t)
 (setq web-mode-enable-auto-expanding t)
 
 ;;;;;;;;;;;;;;;;;;;;;
@@ -235,5 +246,24 @@
 (add-hook 'LaTeX-mode-hook
 	  (lambda ()
 	    (setq preview-image-type 'pnm)))
-	  
+
+(add-hook 'LaTeX-mode-hook
+          'fix-electric-pair-paired-delimiters-in-tex-mode)
+
+(defun fix-electric-pair-paired-delimiters-in-tex-mode ()
+  (add-function
+   :around
+   (local 'electric-pair-skip-self)
+   (lambda (oldfun c)
+     (pcase (electric-pair-syntax-info c)
+       (`(,syntax ,_ ,_ ,_)
+        (if (eq syntax ?$)
+            (unwind-protect
+                (progn
+                  (delete-char -1)
+                  (texmathp))
+              (insert-char c))
+          (funcall oldfun c)))))
+   '((name . fix-electric-pair-paired-delimiters-in-tex-mode))))
+
 ;;; .emacs ends here
